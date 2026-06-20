@@ -2,38 +2,49 @@ const btnSi = document.getElementById("btnSi");
 const btnNo = document.getElementById("btnNo");
 const respuesta = document.getElementById("respuesta");
 
-btnSi.addEventListener("click", function() {
+btnSi.addEventListener("click", function () {
     respuesta.innerHTML = "¡Sabía que dirías que sí! Nos vamos al Hatun a bailar ⚡🕺💃";
     lanzarRayos();
 });
 
-function moverBotonNo() {
-    const maxX = window.innerWidth - btnNo.offsetWidth - 30;
-    const maxY = window.innerHeight - btnNo.offsetHeight - 30;
+function moverBotonNo(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
+    const anchoPantalla = window.innerWidth;
+    const altoPantalla = window.innerHeight;
+
+    const anchoBoton = btnNo.offsetWidth;
+    const altoBoton = btnNo.offsetHeight;
+
+    const margen = 20;
+
+    const maxX = anchoPantalla - anchoBoton - margen;
+    const maxY = altoPantalla - altoBoton - margen;
+
+    const x = Math.floor(Math.random() * (maxX - margen)) + margen;
+    const y = Math.floor(Math.random() * (maxY - margen)) + margen;
 
     btnNo.style.position = "fixed";
     btnNo.style.left = x + "px";
     btnNo.style.top = y + "px";
     btnNo.style.transform = "none";
+    btnNo.style.zIndex = "9999";
 }
 
-// Para PC
-btnNo.addEventListener("mouseover", moverBotonNo);
+// PC
+btnNo.addEventListener("mouseenter", moverBotonNo);
 
-// Para celular
-btnNo.addEventListener("touchstart", function(e) {
-    e.preventDefault();
-    moverBotonNo();
-});
+// Celular moderno
+btnNo.addEventListener("pointerdown", moverBotonNo);
 
-// Por si toca rápido
-btnNo.addEventListener("click", function(e) {
-    e.preventDefault();
-    moverBotonNo();
-});
+// Celular antiguo
+btnNo.addEventListener("touchstart", moverBotonNo, { passive: false });
+
+// Por si logra tocarlo
+btnNo.addEventListener("click", moverBotonNo);
 
 function lanzarRayos() {
     for (let i = 0; i < 25; i++) {
