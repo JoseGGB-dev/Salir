@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #3e2723, #795548, #a1887f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.card {
+    background: #fff8f0;
+    width: 90%;
+    max-width: 470px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+    animation: aparecer 1s ease;
+    border: 3px solid #5d4037;
+}
+
+h1 {
+    color: #4e342e;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #4a312c;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #5d4037;
+    margin-bottom: 25px;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btnSi {
+    background: #5d4037;
+    color: white;
+}
+
+#btnSi:hover {
+    background: #3e2723;
+    transform: scale(1.1);
+}
+
+#btnNo {
+    background: #2c1b18;
+    color: white;
+    position: relative;
+}
+
+#respuesta {
+    margin-top: 25px;
+    font-size: 22px;
+    color: #4e342e;
+    font-weight: bold;
+}
+
+.rayo {
+    position: fixed;
+    top: -30px;
+    font-size: 28px;
+    animation: caer linear forwards;
+    z-index: 999;
+}
+
+@keyframes caer {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
