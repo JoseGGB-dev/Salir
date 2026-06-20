@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación al Hatun</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+  <title>¿Vamos a bailar en el Hatun? ⚡</title>
+  <link rel="stylesheet" href="style.css?v=1.0" />
 </head>
 <body>
 
-    <div class="card">
-        <h1>⚡ Tengo una invitación para ti ⚡</h1>
+  <main class="card-container">
+    <section class="card" id="card">
+      <p class="emoji-top">⚡</p>
 
-        <p>
-            Me gustaría pasar una noche bonita contigo,
-            bailar, reírnos y quedar moridos.
-        </p>
+      <h1 class="question" id="question">¿Quieres ir conmigo a bailar al Hatun?</h1>
+      <p class="subtitle" id="subtitle">Esta noche, música y nosotros dos moridos</p>
 
-        <h2>¿Quieres ir conmigo a bailar al Hatun? 🕺💃</h2>
+      <div class="buttons" id="buttons">
+        <button id="btnYes" class="btn btn-yes" type="button">Sí, vamos ⚡</button>
+        <button id="btnNo" class="btn btn-no" type="button">No 😢</button>
+      </div>
 
-        <div class="botones">
-            <button id="btnSi">Sí, vamos ⚡</button>
-            <button id="btnNo">No 😢</button>
-        </div>
+      <div class="result" id="result">
+        <p id="resultMessage"></p>
+      </div>
+    </section>
+  </main>
 
-        <p id="respuesta"></p>
-    </div>
-<script src="script.js?v=3"></script>
+  <!-- Contenedor donde caerán los rayos animados -->
+  <div class="bolts-container" id="boltsContainer" aria-hidden="true"></div>
+
+  <script src="script.js?v=1.0"></script>
 </body>
 </html>

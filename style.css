@@ -1,111 +1,271 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* =========================================
+   VARIABLES DE COLOR (tema marrón / dorado)
+   ========================================= */
+:root {
+  --brown-darkest: #1f140d;
+  --brown-dark: #3b2415;
+  --brown: #5c3a21;
+  --brown-light: #8a5a35;
+  --beige: #e8d9c5;
+  --gold: #d9a441;
+  --gold-light: #f1c876;
 }
 
+/* =========================================
+   RESET BÁSICO
+   ========================================= */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* =========================================
+   FONDO DEGRADADO MARRÓN
+   ========================================= */
 body {
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #3e2723, #795548, #a1887f);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  min-height: 100vh;
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+  color: var(--beige);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+
+  background: linear-gradient(
+    135deg,
+    var(--brown-darkest),
+    var(--brown-dark) 40%,
+    var(--brown) 70%,
+    var(--brown-light)
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 14s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* =========================================
+   TARJETA CENTRADA
+   ========================================= */
+.card-container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .card {
-    background: #fff8f0;
-    width: 90%;
-    max-width: 470px;
-    padding: 30px;
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 42px 32px;
+  text-align: center;
+  border-radius: 26px;
+
+  background: linear-gradient(
+    160deg,
+    rgba(59, 36, 21, 0.95),
+    rgba(92, 58, 33, 0.95)
+  );
+  border: 1px solid rgba(217, 164, 65, 0.35);
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(217, 164, 65, 0.08);
+
+  animation: cardIn 0.8s ease;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.card.celebrate {
+  animation: celebrateShake 0.6s ease;
+}
+
+@keyframes celebrateShake {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-1.5deg); }
+  75%      { transform: rotate(1.5deg); }
+}
+
+/* =========================================
+   TEXTOS
+   ========================================= */
+.emoji-top {
+  font-size: 42px;
+  margin: 0 0 10px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+
+.question {
+  font-size: 1.6rem;
+  line-height: 1.35;
+  margin: 0 0 12px;
+  color: var(--gold-light);
+}
+
+.subtitle {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin: 0 0 30px;
+}
+
+/* =========================================
+   BOTONES
+   ========================================= */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 50px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    left 0.35s ease,
+    top 0.35s ease;
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--brown-darkest);
+  box-shadow: 0 8px 20px rgba(217, 164, 65, 0.35);
+}
+
+.btn-yes:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 26px rgba(217, 164, 65, 0.5);
+}
+
+.btn-yes:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.btn-no {
+  background: rgba(232, 217, 197, 0.08);
+  color: var(--beige);
+  border: 1.5px solid rgba(232, 217, 197, 0.4);
+  z-index: 60; /* siempre por encima de todo para poder "escaparse" */
+}
+
+.btn-no:hover {
+  background: rgba(232, 217, 197, 0.16);
+}
+
+/* =========================================
+   MENSAJE DE RESULTADO
+   ========================================= */
+.result {
+  margin-top: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 0.5s ease, margin-top 0.5s ease;
+}
+
+.result.show {
+  margin-top: 20px;
+  max-height: 200px;
+  opacity: 1;
+  animation: popIn 0.5s ease;
+}
+
+.result p {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--gold-light);
+  margin: 0;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* =========================================
+   LLUVIA DE RAYOS ANIMADOS
+   ========================================= */
+.bolts-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* nunca bloquean clics */
+  overflow: hidden;
+  z-index: 40;
+}
+
+.bolt {
+  position: fixed;
+  top: -40px;
+  pointer-events: none;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes fall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  8%   { opacity: 1; }
+  100% { transform: translateY(115vh) rotate(360deg); opacity: 0.15; }
+}
+
+/* =========================================
+   RESPONSIVE (celulares)
+   ========================================= */
+@media (max-width: 480px) {
+  .card {
+    padding: 32px 22px;
     border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.4);
-    animation: aparecer 1s ease;
-    border: 3px solid #5d4037;
+  }
+
+  .question {
+    font-size: 1.3rem;
+  }
+
+  .subtitle {
+    font-size: 0.92rem;
+  }
+
+  .btn {
+    font-size: 0.95rem;
+    padding: 12px 22px;
+  }
 }
 
-h1 {
-    color: #4e342e;
-    margin-bottom: 20px;
-}
-
-p {
-    color: #4a312c;
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
-h2 {
-    color: #5d4037;
-    margin-bottom: 25px;
-}
-
-.botones {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-button {
-    border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#btnSi {
-    background: #5d4037;
-    color: white;
-}
-
-#btnSi:hover {
-    background: #3e2723;
-    transform: scale(1.1);
-}
-
-#btnNo {
-    background: #2c1b18;
-    color: white;
-    position: relative;
-    z-index: 9999;
-    touch-action: none;
-    user-select: none;
-}
-
-#respuesta {
-    margin-top: 25px;
-    font-size: 22px;
-    color: #4e342e;
-    font-weight: bold;
-}
-
-.rayo {
-    position: fixed;
-    top: -30px;
-    font-size: 28px;
-    animation: caer linear forwards;
-    z-index: 999;
-}
-
-@keyframes caer {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-@keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+@media (max-height: 600px) {
+  .card {
+    padding: 24px 20px;
+  }
+  .emoji-top {
+    font-size: 32px;
+  }
 }
