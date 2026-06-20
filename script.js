@@ -7,11 +7,32 @@ btnSi.addEventListener("click", function() {
     lanzarRayos();
 });
 
-btnNo.addEventListener("mouseover", function() {
-    const x = Math.random() * 250 - 125;
-    const y = Math.random() * 250 - 125;
+function moverBotonNo() {
+    const maxX = window.innerWidth - btnNo.offsetWidth - 30;
+    const maxY = window.innerHeight - btnNo.offsetHeight - 30;
 
-    btnNo.style.transform = `translate(${x}px, ${y}px)`;
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    btnNo.style.position = "fixed";
+    btnNo.style.left = x + "px";
+    btnNo.style.top = y + "px";
+    btnNo.style.transform = "none";
+}
+
+// Para PC
+btnNo.addEventListener("mouseover", moverBotonNo);
+
+// Para celular
+btnNo.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moverBotonNo();
+});
+
+// Por si toca rápido
+btnNo.addEventListener("click", function(e) {
+    e.preventDefault();
+    moverBotonNo();
 });
 
 function lanzarRayos() {

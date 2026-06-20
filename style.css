@@ -71,6 +71,7 @@ button {
     background: #2c1b18;
     color: white;
     position: relative;
+    z-index: 1000;
 }
 
 #respuesta {
